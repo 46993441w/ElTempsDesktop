@@ -30,6 +30,9 @@ public class Controller {
     private String city = "Barcelona";
     private int units = 0;
 
+    /**
+     * Mètode que s'inicia automaticament al començament
+     */
     public void initialize() {
         setData(city, units);
         llista.setItems(data);
@@ -42,7 +45,7 @@ public class Controller {
     }
 
     /**
-     * Mètode que mostra la llista en la pantalla
+     * Mètode que canvia la llista que es mostra per pantalla
      */
     public void setData(String city,int units) {
         data.remove(1, data.size());
@@ -78,7 +81,7 @@ public class Controller {
     }
 
     /**
-     * funció que tanca el programa
+     * Mètode que tanca el programa
      * @param actionEvent
      */
     public void sortir(ActionEvent actionEvent) {
