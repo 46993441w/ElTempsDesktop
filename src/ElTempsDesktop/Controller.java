@@ -5,8 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.text.Font;
+import javafx.util.Callback;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -25,20 +26,26 @@ public class Controller {
     public CheckMenuItem ipr;
     public CheckMenuItem mdd;
     public CheckMenuItem bcn;
-    private ObservableList<String> data = FXCollections.observableArrayList("hola","que","tal");
+    private ObservableList<String> data = FXCollections.observableArrayList("\t\tdia\t\t-\ttemps\t\t-\tMin/Max");
     private String city = "Barcelona";
     private int units = 0;
 
-    public void initialize(){
-        setData(city,units);
+    public void initialize() {
+        setData(city, units);
         llista.setItems(data);
+        llista.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> llista) {
+                return new TempsCell();
+            }
+        });
     }
 
     /**
      * Mètode que mostra la llista en la pantalla
      */
     public void setData(String city,int units) {
-        data.remove(0, data.size());
+        data.remove(1, data.size());
         File inputFile = new File(city+units+".xml");
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -54,11 +61,12 @@ public class Controller {
                 String[] horari = temps.getAttribute("day").split("-");
                 String diaVista = horari[2]+"/"+horari[1];
                 String descripcio = temps.getFirstChild().getAttributes().getNamedItem("name").getTextContent();
+                String icon = temps.getFirstChild().getAttributes().getNamedItem("var").getTextContent()+"#";
                 Element temperatura = (Element)temps.getChildNodes().item(4);
                 String tempMin = temperatura.getAttribute("min");
                 String tempMax = temperatura.getAttribute("max");
                 // afegir el String al observableList per a que el mostri el listView
-                data.add(diaVista + " - " + descripcio + " - " + tempMin + "/" + tempMax);
+                data.add(icon + diaVista + "\t-\t" + descripcio + "\t-\t" + tempMin + "/" + tempMax);
             }
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -77,6 +85,10 @@ public class Controller {
         Platform.exit();
     }
 
+    /**
+     * Mètode que canvia la ciutat i mostra les seves dades
+     * @param actionEvent
+     */
     public void changeCity(ActionEvent actionEvent) {
         CheckMenuItem men = (CheckMenuItem) actionEvent.getSource();
         switch (men.getId()){
@@ -92,6 +104,10 @@ public class Controller {
         setData(city,units);
     }
 
+    /**
+     * Mètode que canvia les unitats i mostra les seves dades
+     * @param actionEvent
+     */
     public void changeUnits(ActionEvent actionEvent) {
         CheckMenuItem men = (CheckMenuItem) actionEvent.getSource();
         switch (men.getId()){
