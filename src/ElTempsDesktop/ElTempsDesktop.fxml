@@ -10,17 +10,28 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ElTempsDesktop.Controller">
    <children>
-      <ListView fx:id="llista" fixedCellSize="0.0" layoutX="-200.0" layoutY="-16.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0" />
-      <MenuBar layoutX="-117.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ListView fx:id="llista" fixedCellSize="0.0" layoutX="29.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0" />
+      <MenuBar layoutX="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="General">
             <items>
-              <MenuItem mnemonicParsing="false" text="City" />
+              <MenuItem fx:id="mnSortir" mnemonicParsing="false" onAction="#sortir" text="Sortir" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Opcions">
             <items>
-              <MenuItem mnemonicParsing="false" text="City" />
+                  <Menu fx:id="ciutat" mnemonicParsing="false" text="City">
+                    <items>
+                        <CheckMenuItem fx:id="bcn" mnemonicParsing="false" onAction="#changeCity" selected="true" text="Barcelona" />
+                        <CheckMenuItem fx:id="mdd" mnemonicParsing="false" onAction="#changeCity" text="Madrid" />
+                    </items>
+                  </Menu>
+                  <Menu fx:id="unitats" mnemonicParsing="false" text="Unitats">
+                    <items>
+                        <CheckMenuItem fx:id="mts" mnemonicParsing="false" onAction="#changeUnits" selected="true" text="Metriques" />
+                        <CheckMenuItem fx:id="ipr" mnemonicParsing="false" onAction="#changeUnits" text="Imperials" />
+                    </items>
+                  </Menu>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

@@ -1,8 +1,12 @@
 package ElTempsDesktop;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ListView;
+import javafx.scene.text.Font;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -17,16 +21,25 @@ import java.io.IOException;
 public class Controller {
 
     public ListView<String> llista;
-    private ObservableList<String> data = FXCollections.observableArrayList();
+    public CheckMenuItem mts;
+    public CheckMenuItem ipr;
+    public CheckMenuItem mdd;
+    public CheckMenuItem bcn;
+    private ObservableList<String> data = FXCollections.observableArrayList("hola","que","tal");
+    private String city = "Barcelona";
+    private int units = 0;
 
     public void initialize(){
-        setData();
+        setData(city,units);
         llista.setItems(data);
     }
 
-    public void setData() {
-        data.removeAll();
-        File inputFile = new File("forecast.xml");
+    /**
+     * Mètode que mostra la llista en la pantalla
+     */
+    public void setData(String city,int units) {
+        data.remove(0, data.size());
+        File inputFile = new File(city+units+".xml");
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -54,6 +67,43 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.data = data;
+    }
+
+    /**
+     * funció que tanca el programa
+     * @param actionEvent
+     */
+    public void sortir(ActionEvent actionEvent) {
+        Platform.exit();
+    }
+
+    public void changeCity(ActionEvent actionEvent) {
+        CheckMenuItem men = (CheckMenuItem) actionEvent.getSource();
+        switch (men.getId()){
+            case "bcn":
+                city = "Barcelona";
+                mdd.setSelected(false);
+                break;
+            case "mdd":
+                city = "Madrid";
+                bcn.setSelected(false);
+                break;
+        }
+        setData(city,units);
+    }
+
+    public void changeUnits(ActionEvent actionEvent) {
+        CheckMenuItem men = (CheckMenuItem) actionEvent.getSource();
+        switch (men.getId()){
+            case "mts":
+                units = 0;
+                ipr.setSelected(false);
+                break;
+            case "ipr":
+                units = 1;
+                mts.setSelected(false);
+                break;
+        }
+        setData(city,units);
     }
 }
