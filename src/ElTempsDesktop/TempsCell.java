@@ -4,8 +4,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.File;
-
 /**
  * Created by alumne on 12/11/15.
  */
