@@ -75,6 +75,11 @@ public class Controller {
         dialog.setResizable(true);
         ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        // Definició d'un diàleg usant la classe Dialog
+        mitjas = new Dialog();
+        mitjas.setTitle("Diàleg");
+        mitjas.setResizable(true);
+        mitjas.getDialogPane().getButtonTypes().add(buttonTypeOk);
     }
 
     private void createDialog(String icon, String temps) {
@@ -221,16 +226,10 @@ public class Controller {
     }
 
     public void setMitjas(String tipus, double result,String unitats){
-        // Definició d'un diàleg usant la classe Dialog
-        mitjas = new Dialog();
-        mitjas.setTitle("Diàleg");
-        mitjas.setHeaderText("Càlcul de la mitja de la "+tipus);
-        mitjas.setResizable(true);
+        mitjas.setHeaderText("Càlcul de la mitja de la " + tipus);
         Label label1 = new Label(String.format("%.2f", result) + " " + unitats);
         GridPane grid = new GridPane();
         grid.add(label1, 1, 1);
         mitjas.getDialogPane().setContent(grid);
-        ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
-        mitjas.getDialogPane().getButtonTypes().add(buttonTypeOk);
     }
 }
