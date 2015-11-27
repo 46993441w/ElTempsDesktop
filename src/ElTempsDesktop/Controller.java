@@ -49,6 +49,7 @@ public class Controller {
                 return new TempsCell();
             }
         });
+        inicialitzarDialog();
         llista.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
@@ -66,12 +67,17 @@ public class Controller {
         });
     }
 
-    private void createDialog(String icon, String temps) {
+    private void inicialitzarDialog() {
         // Definició d'un diàleg usant la classe Dialog
         dialog = new Dialog();
         dialog.setTitle("Diàleg");
         dialog.setHeaderText("This is a custom dialog");
         dialog.setResizable(true);
+        ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+    }
+
+    private void createDialog(String icon, String temps) {
         Label label1 = new Label("Predicció: ");
         ImageView img1 = new ImageView("icons/" + icon + ".png");
         Label label2 = null;
@@ -88,8 +94,6 @@ public class Controller {
         grid.add(img1, 1, 2);
         grid.add(label2, 2, 2);
         dialog.getDialogPane().setContent(grid);
-        ButtonType buttonTypeOk = new ButtonType("Okay", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
     }
 
     public void listViewClick(Event event) {
